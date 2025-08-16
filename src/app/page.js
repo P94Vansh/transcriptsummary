@@ -6,7 +6,6 @@ import { Editor } from "@tinymce/tinymce-react";
 export default function TranscriptForm() {
   
   const editorRef = useRef(null);
-  const [mailSent,setMailSent]=useState(false)
   const [data, setData] = useState({
     transcript: "",
     prompt: "",
@@ -22,16 +21,18 @@ export default function TranscriptForm() {
     try {
       const res = await axios.post("/api/generate-summary", data);
       setResponse(res.data.Summary);
-      setMailSent(false)
     } catch (error) {
       console.log(error.message);
     }
   };
   const sendMail=async()=>{
     try {
+      if(mail.to!=="vanshgambhirag@gmail.com"){
+        alert("You can only send email to vanshgambhirag@gmail.com only because of the free tier plan..")
+        return;
+      }
       const res = await axios.post("/api/send-mail", mail);
       console.log(res)
-      setMailSent(true)
     } catch (error) {
       console.log(error.message)
     }
@@ -127,7 +128,6 @@ export default function TranscriptForm() {
     >
       Send Mail
     </button>
-      {setMailSent && (<h1 className="text-black font-bold text-4xl">Mail Sent.</h1>)}
   </div>
        )} 
     </div>
