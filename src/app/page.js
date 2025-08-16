@@ -28,7 +28,7 @@ export default function TranscriptForm() {
   const sendMail=async()=>{
     try {
       if(mail.to!=="vanshgambhirag@gmail.com"){
-        alert("You can only send email to vanshgambhirag@gmail.com only because of the free tier plan..")
+        alert("You can only send email to vanshgambhirag@gmail.com only because of resend's free tier plan and no custom domain..")
         return;
       }
       const res = await axios.post("/api/send-mail", mail);
